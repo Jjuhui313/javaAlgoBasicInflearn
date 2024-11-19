@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 /*
  * 08-13 섬나라 아일랜드
  *
- * BFS로 풀어보기
+ * DFS로 풀어보기
  * */
 
 public class Main {
