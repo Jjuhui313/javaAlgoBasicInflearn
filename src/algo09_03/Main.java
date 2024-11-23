@@ -1,4 +1,4 @@
-package algo09_02;
+package algo09_03;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,41 +7,45 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
+
 /*
- * 09-02 회의실 배정
+ * 09-03 결혼식
  *
  * Greedy로 풀어보기
  * */
 
 class Time implements Comparable<Time> {
-    public int s;
-    public int e;
+    public int time;
+    public char state;
 
-    Time(int s, int e) {
-        this.s = s;
-        this.e = e;
+    Time(int time, char state) {
+        this.time = time;
+        this.state = state;
     }
+
     @Override
     public int compareTo(Time t) {
-        if (this.e == t.e) {
-            return this.s - t.s;
+        if (this.time == t.time) {
+            return this.state - t.state;
         } else {
-            return this.e - t.e;
+            return this.time - t.time;
         }
     }
 }
+
 public class Main {
 
-    public static int solution(ArrayList<Time> arr, int n) {
-        int answer = 0;
+    public static int solution(ArrayList<Time> arr) {
+        int answer = Integer.MIN_VALUE;
         Collections.sort(arr);
-        int end = 0;
-
+        int count = 0;
         for (Time time : arr) {
-            if (time.s >= end) {
-                answer++;
-                end = time.e;
+            if (time.state == 's') {
+                count++;
+            } else {
+                count--;
             }
+            answer = Math.max(answer, count);
         }
 
         return answer;
@@ -55,9 +59,12 @@ public class Main {
             StringTokenizer st = new StringTokenizer(br.readLine());
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
-            arr.add(new Time(s, e));
+            arr.add(new Time(s, 's'));
+            arr.add(new Time(e, 'e'));
+
         }
 
-        System.out.println(solution(arr, N));
+        System.out.println(solution(arr));
     }
+
 }
